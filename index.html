@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noelia Cruz — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts: Cormorant (display elegante) + DM Sans (cuerpo limpio) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <!-- Bootstrap 5: sistema de grilla y utilidades -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box;}
+
+    body {
+      background-color: var(--midnight);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================
+                    NAV LATERAL
+      Cada ícono es un enlace a una sección (#id)
+  ============================================= -->
+  <nav class="side-nav">
+    <a href="#hero"      class="nav-icon active" title="Inicio">⌂</a>
+    <a href="#marketing" class="nav-icon"         title="Marketing">◈</a>
+    <a href="#dev"       class="nav-icon"         title="Dev">⟨⟩</a>
+    <a href="#proyectos" class="nav-icon"         title="Proyectos">▦</a>
+    <a href="#contacto"  class="nav-icon"         title="Contacto">✉</a>
+  </nav>
+
+  <!-- ============================================
+            HERO SECTION
+  ============================================= -->
+  <section class="hero" id="hero">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-center">
+
+        <!-- Columna izquierda: contenido principal -->
+        <div class="col-lg-7 col-md-8">
+
+          <!-- Avatar -->
+          <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <!-- Reemplazá el texto "NB" con tu foto: <img src="foto.jpg" class="avatar-img"> -->
+            <div class="avatar-img">NC</div>
+            <span class="avatar-badge">✦ disponible</span>
+          </div>
+
+          <p class="hero-eyebrow">Marketing · Desarrollo · Estrategia</p>
+
+          <h1 class="hero-name">
+            Noelia<br>
+            <em>Cruz</em>
+          </h1>
+
+          <!-- El texto aquí lo reemplaza JS con el efecto typewriter -->
+          <p class="hero-role">
+            <span id="typewriter"></span>
+            <span class="cursor"></span>
+          </p>
+
+          <p class="hero-bio">
+            Combino estrategia de marketing, branding y desarrollo web
+            para crear experiencias digitales que comunican con precisión
+            e impacto.
+          </p>
+
+          <!-- Pills de habilidades -->
+          <div class="skill-pills">
+            <span class="pill">Marketing</span>
+            <span class="pill">Social Media</span>
+            <span class="pill">Copywriting</span>
+            <span class="pill">HTML · CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Java</span>
+            <span class="pill">Estrategia Digital</span>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="cta-group">
+            <a href="https://www.linkedin.com/in/noelia-cruz/" class="btn-primary-custom" target="_blank">Linkedin</a>
+            <a href="https://github.com/noeliacruz22"  class="btn-primary-custom" target="_blank">Github</a>
+            <a href="doc/CV-Noelia_Cruz.pdf" download="CV-Noelia_Cruz"  class="btn-primary-custom" target="_blank">CV</a>
+          </div>
+        </div>
+
+        <!-- Columna derecha: stats flotantes -->
+        <div class="col-lg-2 col-md-3 d-none d-md-flex justify-content-center">
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Certificación<br>en Marketing</div>
+            </div>
+            <div class="divider-v"></div>
+            <div class="stat-card">
+              <div class="stat-number">2</div>
+              <div class="stat-label">Tecnicaturas<br>en curso</div>
+            </div>
+            <div class="divider-v"></div>
+            <div class="stat-card">
+              <div class="stat-number">∞</div>
+              <div class="stat-label">Proyectos<br>en curso</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="scroll-hint">
+      <div class="scroll-dot"></div>
+      <!--<span>scroll</span>-->
+    </div>
+  </section>
+
+
+  <!-- Bootstrap JS (necesario para componentes interactivos futuros) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // =============================================
+    // EFECTO TYPEWRITER — cambia el rol automáticamente
+    // Array de roles que va rotando
+    // =============================================
+    const roles = [
+      "Marketing Manager",
+      "Social Media Strategist",
+      "Frontend Developer",
+      "Brand Communicator",
+      "Digital Strategist"
+    ];
+
+    let roleIndex = 0;   // cuál rol estamos mostrando
+    let charIndex  = 0;  // cuántos caracteres mostró
+    let deleting   = false;
+    const el = document.getElementById('typewriter');
+
+    function typewrite() {
+      const current = roles[roleIndex];
+
+      if (!deleting) {
+        // Modo escritura: agrega un carácter
+        el.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          // Terminó de escribir → espera 2s antes de borrar
+          setTimeout(() => { deleting = true; }, 2000);
+        }
+      } else {
+        // Modo borrado: quita un carácter
+        el.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;  // siguiente rol
+        }
+      }
+
+      // Velocidad: escritura más lenta que borrado
+      setTimeout(typewrite, deleting ? 50 : 90);
+    }
+
+    typewrite();  // arranca el efecto
+
+    // =============================================
+    // NAV ACTIVO — marca el ícono de la sección visible
+    // IntersectionObserver detecta qué sección está en pantalla
+    // =============================================
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-icon');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-icon[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+
+  <!-- SECCIÓN MARKETING -->
+  <section id="marketing">
+    <div class="container-fluid">
+
+      <div class="row mb-2">
+        <div class="col-12">
+          <p class="section-eyebrow">Área de Marketing</p>
+          <h2 class="section-title">Estrategia &amp; <em>Comunicación</em></h2>
+          <div class="section-divider"></div>
+          <p class="section-intro">
+            Gestión integral de marca, contenido y comunicación digital
+            para JD Negocios Inmobiliarios — desde la estrategia hasta
+            la producción de cada pieza.
+          </p>
+        </div>
+      </div>
+
+      <!-- Cards de proyectos -->
+      <div class="row g-4 mb-5">
+
+        <div class="col-lg-4 col-md-6 reveal reveal-delay-1">
+          <div class="project-card">
+            <div class="card-img-wrap">
+              <img src="img/perfil_instgram.jpeg" alt="Instagram JD">
+              <div class="img-placeholder"><span>Instagram JD Negocios Inmobiliarios</span></div>
+              <span class="card-badge">Instagram</span>
+              <a href="https://www.instagram.com/jd.negociosinmobiliarios?igsh=MWVvNjFyNzI5N3pvYw==" target="_blank" class="card-link-icon">↗</a>
+            </div>
+            <div class="card-body-custom">
+              <p class="card-platform">Gestión de perfil</p>
+              <h3 class="card-title-custom">JD Negocios Inmobiliarios</h3>
+              <p class="card-desc">Diseño de feed, estrategia de contenido, stories y reels para posicionamiento de marca en el sector inmobiliario de Córdoba.</p>
+              <div class="card-tags">
+                <span class="card-tag">Canva</span>
+                <span class="card-tag">Copywriting</span>
+                <span class="card-tag">Estrategia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal reveal-delay-2">
+          <div class="project-card">
+            <div class="card-img-wrap">
+              <img src="img/perfil_linkedin.jpeg" alt="Linkedin Jonathan">
+              <div class="img-placeholder"><span>LinkedIn JD</span></div>
+              <span class="card-badge">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/jonathan-diaz22/" target="_blank" class="card-link-icon">↗</a>
+            </div>
+            <div class="card-body-custom">
+              <p class="card-platform">Perfil institucional</p>
+              <h3 class="card-title-custom">Perfil LinkedIn — Jonathan Diaz</h3>
+              <p class="card-desc">Optimización del perfil del CEO, adaptación de tono institucional y creación de contenido para audiencia profesional B2B.</p>
+              <div class="card-tags">
+                <span class="card-tag">LinkedIn</span>
+                <span class="card-tag">Branding</span>
+                <span class="card-tag">B2B</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal reveal-delay-3">
+          <div class="project-card">
+            <div class="card-img-wrap" style="height:200px; overflow:hidden; position:relative;">
+            <iframe
+                src="https://www.youtube.com/embed/GbX67EAzCg0"
+                style="width:100%; height:100%; border:none; display:block;"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+              <span class="card-badge">Reel · Video</span>
+              <a href="https://youtube.com/shorts/GbX67EAzCg0" target="_blank" class="card-link-icon">↗</a>
+            </div>
+            <div class="card-body-custom">
+              <p class="card-platform">Producción audiovisual</p>
+              <h3 class="card-title-custom">Reel de propiedad</h3>
+              <p class="card-desc">Producción y edición de reel inmobiliario — guión, filmación, edición y publicación con copy optimizado para alcance orgánico.</p>
+              <div class="card-tags">
+                <span class="card-tag">CapCut</span>
+                <span class="card-tag">Edición</span>
+                <span class="card-tag">Reels</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Grid publicaciones -->
+      <p class="pub-section-label">Publicaciones recientes</p>
+      <div class="pub-grid mb-5">
+        <!-- Reemplazá cada pub-placeholder con tu imagen real -->
+        <div class="pub-item reveal reveal-delay-1">
+          <div class="pub-placeholder"><img src="img/post_equipo.png" alt="Publicacion Instagram"></div>
+          <a href="https://www.instagram.com/p/DX7IiL_gCLy/?hl=es&img_index=1" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-2">
+          <div class="pub-placeholder"><img src="img/reel_prop1.png" alt="reel propiedad 1"></div>
+          <a href="https://www.instagram.com/p/DXpASbrAEA6/?hl=es" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-3">
+          <div class="pub-placeholder"><img src="img/linkedin_jd.png" alt="perfil linkedin jd"></div>
+          <a href="https://www.linkedin.com/company/jd-negocios-inmobiliarios/" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-1">
+          <div class="pub-placeholder"><img src="img/brochure_terrenos.png" alt="brochure terrenos jd"></div>
+          <a href="https://drive.google.com/file/d/1Iv4bre69X5VjxazhM0AbY3sNNJZ2HBO1/view?usp=sharing" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-2">
+          <div class="pub-placeholder"><img src="img/tiktok_jd.png" alt="perfil tiktok jd"></div>
+          <a href="https://www.tiktok.com/@jd_negocios_inmo?_r=1&_t=ZS-968mwYj5vHg" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-3">
+          <div class="pub-placeholder"><img src="img/reel_tiktok.png" alt="reel tiktok jd"></div>
+          <a href="https://www.tiktok.com/@jd_negocios_inmo/video/7632018255015726356?is_from_webapp=1&sender_device=pc&web_id=7354370781604185606" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+        <div class="pub-item reveal reveal-delay-1">
+          <div class="pub-placeholder"><img src="img/reel_tiktok_prop2.png" alt="reel tiktok jd 2"></div>
+          <a href="https://www.tiktok.com/@jd_negocios_inmo/video/7500265663655660805?is_from_webapp=1&sender_device=pc&web_id=7354370781604185606" target="_blank" class="pub-overlay">
+            <span class="pub-overlay-icon">↗</span>
+            <span class="pub-overlay-label">Ver post</span>
+          </a>
+        </div>
+    </div>
+
+      <!-- Herramientas -->
+      <div class="tools-wrap reveal">
+        <p class="tools-label">Stack de herramientas</p>
+        <h3 class="tools-title">Con qué trabajo</h3>
+        <div class="tools-grid">
+          <div class="tool-chip">
+            <div class="tool-icon">🎨</div>
+            <div>
+              <div class="tool-name">Canva</div>
+              <div class="tool-status">Diseño gráfico</div>
+            </div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-icon">🎬</div>
+            <div>
+              <div class="tool-name">CapCut</div>
+              <div class="tool-status">Edición de video</div>
+            </div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-icon">📸</div>
+            <div>
+              <div class="tool-name">Instagram</div>
+              <div class="tool-status">Gestión de perfil</div>
+            </div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-icon">💼</div>
+            <div>
+              <div class="tool-name">LinkedIn</div>
+              <div class="tool-status">Perfil institucional</div>
+            </div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-icon">📊</div>
+            <div>
+              <div class="tool-name">Meta Business</div>
+              <div class="tool-status">Analíticas</div>
+            </div>
+          </div>
+          <div class="stack-chip"><span class="stack-chip-icon">🤖</span>
+            <div>
+              <div class="stack-chip-name">IA Aplicada</div>
+              <div class="stack-chip-level">LLM · Vibe Coding</div>
+            </div>
+          </div>
+          <!-- Agregá más chips acá a medida que avanzás en tu certificación -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <script>
+    // SCROLL REVEAL — observa elementos con .reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+  </script>
+
+  <!-- SECCIÓN DEV -->
+  <section id="dev">
+    <div class="container-fluid">
+
+      <div class="row mb-2">
+        <div class="col-12">
+          <p class="section-eyebrow">Área de Desarrollo</p>
+          <h2 class="section-title">Código &amp; <em>Construcción</em></h2>
+          <div class="section-divider"></div>
+          <p class="section-intro">
+            Formación técnica en programación y desarrollo web,
+            con foco en interfaces funcionales y soluciones
+            que integran tecnología y comunicación.
+          </p>
+        </div>
+      </div>
+
+      <p class="pub-section-label" style="color:rgba(186,176,200,0.4)">Stack tecnológico</p>
+      <div class="stack-grid reveal">
+        <div class="stack-chip"><span class="stack-chip-icon">🌐</span><div><div class="stack-chip-name">HTML · CSS</div><div class="stack-chip-level">Base sólida</div></div></div>
+        <div class="stack-chip"><span class="stack-chip-icon">⚡</span><div><div class="stack-chip-name">JavaScript</div><div class="stack-chip-level">En práctica</div></div></div>
+        <div class="stack-chip"><span class="stack-chip-icon">🐍</span><div><div class="stack-chip-name">Python</div><div class="stack-chip-level">Aprendiendo</div></div></div>
+        <div class="stack-chip"><span class="stack-chip-icon">☕</span><div><div class="stack-chip-name">Java</div><div class="stack-chip-level">Cursando</div></div></div>
+        <div class="stack-chip"><span class="stack-chip-icon">🗄️</span><div><div class="stack-chip-name">SQL</div><div class="stack-chip-level">Bases de datos</div></div></div>
+        <div class="stack-chip"><span class="stack-chip-icon">🔧</span><div><div class="stack-chip-name">Git · GitHub</div><div class="stack-chip-level">Control de versiones</div></div></div>
+      </div>
+
+      <div class="dev-separator"></div>
+
+      <div class="row g-5">
+
+        <!-- Formación -->
+        <div class="col-lg-4 reveal reveal-delay-1">
+          <p class="pub-section-label" style="color:rgba(186,176,200,0.4);margin-bottom:1.5rem">Formación académica</p>
+          <div class="edu-wrap">
+
+            <div class="edu-item">
+              <p class="edu-year">2026 · En curso</p>
+              <h4 class="edu-title">Tecnicatura en Desarrollo Web</h4>
+              <p class="edu-institution">UNER — Universidad Nacional de Entre Ríos</p>
+              <span class="edu-badge active">En curso</span>
+            </div>
+
+            <div class="edu-item">
+              <p class="edu-year">2026 · En curso</p>
+              <h4 class="edu-title">Certificación Marketing Digital, Ecommerce &amp; Diseño Gráfico</h4>
+              <p class="edu-institution">UNC — Universidad Nacional de Córdoba</p>
+              <span class="edu-badge active">En curso</span>
+            </div>
+
+            <div class="edu-item">
+              <p class="edu-year">2026 · En curso</p>
+              <h4 class="edu-title">Bootcamp de Desarrollo Web</h4>
+              <p class="edu-institution">Manz.dev — Formación independiente</p>
+              <span class="edu-badge active">En curso</span>
+            </div>
+
+            <div class="edu-item">
+              <p class="edu-year">2024 – 2025</p>
+              <h4 class="edu-title">Tec. Universitaria en Programación</h4>
+              <p class="edu-institution">UTN — Universidad Tecnológica Nacional</p>
+              <span class="edu-badge done">Completada</span>
+            </div>
+
+          </div>
+
+          <a href="https://github.com/noeliacruz22" target="_blank" class="github-cta reveal reveal-delay-2">
+            <span class="github-icon">⌥</span>
+            <div>
+              <div style="font-size:13px;font-weight:500">Ver GitHub</div>
+              <div style="font-size:10px;opacity:0.5;letter-spacing:1px">github.com/noeliacruz22</div>
+            </div>
+            <span style="margin-left:auto;opacity:0.5;font-size:14px">↗</span>
+          </a>
+        </div>
+
+        <!-- Proyectos -->
+        <div id="proyectos" class="col-lg-8">
+          <p class="pub-section-label" style="color:rgba(186,176,200,0.4);margin-bottom:1.5rem">Proyectos</p>
+          <div class="row g-3">
+
+            <div class="col-md-6 reveal reveal-delay-1">
+              <div class="dev-card">
+                <div class="dev-card-bg-icon">🌐</div>
+                <p class="dev-card-label">Web App</p>
+                <h4 class="dev-card-title">Proyecto próximamente</h4>
+                <p class="dev-card-desc">Aplicación web desarrollada con HTML, CSS y JavaScript. En construcción.</p>
+                <div class="dev-card-tags"><span class="dev-card-tag">HTML</span><span class="dev-card-tag">CSS</span><span class="dev-card-tag">JavaScript</span></div>
+                <span class="coming-soon-pill"><span class="blink-dot"></span>En construcción</span>
+              </div>
+            </div>
+
+            <div class="col-md-6 reveal reveal-delay-2">
+              <div class="dev-card">
+                <div class="dev-card-bg-icon">🐍</div>
+                <p class="dev-card-label">Script · Automatización</p>
+                <h4 class="dev-card-title">Proyecto próximamente</h4>
+                <p class="dev-card-desc">Script de automatización o análisis de datos con Python. En construcción.</p>
+                <div class="dev-card-tags"><span class="dev-card-tag">Python</span><span class="dev-card-tag">SQL</span></div>
+                <span class="coming-soon-pill"><span class="blink-dot"></span>En construcción</span>
+              </div>
+            </div>
+
+            <div class="col-md-6 reveal reveal-delay-3">
+              <div class="dev-card">
+                <div class="dev-card-bg-icon">☕</div>
+                <p class="dev-card-label">App · Backend</p>
+                <h4 class="dev-card-title">Proyecto próximamente</h4>
+                <p class="dev-card-desc">Aplicación con lógica de negocio desarrollada en Java. En construcción.</p>
+                <div class="dev-card-tags"><span class="dev-card-tag">Java</span><span class="dev-card-tag">SQL</span></div>
+                <span class="coming-soon-pill"><span class="blink-dot"></span>En construcción</span>
+              </div>
+            </div>
+
+            <div class="col-md-6 reveal reveal-delay-1">
+              <div class="dev-card" style="border-style:dashed;opacity:0.4">
+                <div class="dev-card-bg-icon">+</div>
+                <p class="dev-card-label">Próximamente</p>
+                <h4 class="dev-card-title">Tu próximo proyecto</h4>
+                <p class="dev-card-desc">Este espacio te espera. Cada proyecto que construyas va acá.</p>
+                <span class="coming-soon-pill"><span class="blink-dot"></span>Reservado</span>
+              </div>
+            </div>
+
+            <!--
+              CUANDO TENGAS UN PROYECTO REAL, reemplazá una card con:
+              <div class="col-md-6 reveal">
+                <div class="dev-card">
+                  <div class="dev-card-bg-icon">🔧</div>
+                  <p class="dev-card-label">Tipo</p>
+                  <h4 class="dev-card-title">Nombre del proyecto</h4>
+                  <p class="dev-card-desc">Descripción breve.</p>
+                  <div class="dev-card-tags"><span class="dev-card-tag">Tech</span></div>
+                  <a href="https://github.com/noeliacruz22/repo" target="_blank"
+                     style="font-size:12px;color:var(--iris);text-decoration:none">
+                    Ver repositorio ↗
+                  </a>
+                </div>
+              </div>
+            -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN CONTACTO -->
+  <section id="contacto">
+    <div class="container-fluid">
+ 
+      <!-- Header -->
+      <div class="row mb-2">
+        <div class="col-12">
+          <p class="section-eyebrow">Contacto</p>
+          <h2 class="section-title">Hablemos de tu <em>próximo proyecto</em></h2>
+          <div class="section-divider"></div>
+          <p class="section-intro">
+            Estoy disponible para proyectos freelance, colaboraciones
+            y nuevas oportunidades. Escribime y te respondo a la brevedad.
+          </p>
+        </div>
+      </div>
+ 
+      <div class="row g-5 align-items-start">
+ 
+        <!-- Columna izquierda: formulario -->
+        <div class="col-lg-7 reveal reveal-delay-1">
+          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+ 
+            <!-- Fila nombre + email -->
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="form-label-custom" for="nombre">Nombre</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="form-label-custom" for="email">Email</label>
+                  <input
+                    class="form-input"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="tu@email.com"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label-custom" for="asunto">Asunto</label>
+              <input
+                class="form-input"
+                type="text"
+                id="asunto"
+                name="asunto"
+                placeholder="¿De qué se trata?"
+              />
+            </div>
+ 
+            <div class="form-group">
+              <label class="form-label-custom" for="mensaje">Mensaje</label>
+              <textarea
+                class="form-input"
+                id="mensaje"
+                name="mensaje"
+                placeholder="Contame tu proyecto o consulta..."
+                required
+              ></textarea>
+            </div>
+ 
+            <button type="submit" class="btn-send" id="btnSend">
+              Enviar mensaje
+            </button>
+ 
+          </form>
+        </div>
+ 
+        <!-- Columna derecha: links de contacto -->
+        <div class="col-lg-5 reveal reveal-delay-2">
+          <div class="contact-cards">
+ 
+            <!--
+              REEMPLAZÁ los href y textos con tus datos reales:
+              - tu@email.com → tu email real
+              - +54 9 ... → tu número de WhatsApp
+              - /in/tu-perfil → tu URL de LinkedIn
+            -->
+ 
+            <a href="mailto:ana.noelia.cruz22@gmail.com" class="contact-card">
+              <div class="contact-card-icon">✉</div>
+              <div>
+                <div class="contact-card-label">Email</div>
+                <div class="contact-card-value">ana.noelia.cruz22@gmail.com</div>
+              </div>
+              <span class="contact-card-arrow">→</span>
+            </a>
+ 
+            <a href="https://wa.me/qr/AYG7X44PFWBDF1" target="_blank" class="contact-card">
+              <div class="contact-card-icon">💬</div>
+              <div>
+                <div class="contact-card-label">WhatsApp</div>
+                <div class="contact-card-value">+54 93517633471</div>
+              </div>
+              <span class="contact-card-arrow">→</span>
+            </a>
+ 
+            <a href="https://www.linkedin.com/in/noelia-cruz/" target="_blank" class="contact-card">
+              <div class="contact-card-icon">💼</div>
+              <div>
+                <div class="contact-card-label">LinkedIn</div>
+                <div class="contact-card-value">Noelia Cruz</div>
+              </div>
+              <span class="contact-card-arrow">→</span>
+            </a>
+ 
+            <a href="https://github.com/noeliacruz22" target="_blank" class="contact-card">
+              <div class="contact-card-icon">⌥</div>
+              <div>
+                <div class="contact-card-label">GitHub</div>
+                <div class="contact-card-value">noeliacruz22</div>
+              </div>
+              <span class="contact-card-arrow">→</span>
+            </a>
+ 
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <!-- Footer -->
+      <div class="site-footer reveal">
+        <p class="footer-copy">
+          © 2026 Noelia Cruz
+          <span class="footer-dot"></span>
+          Córdoba, Argentina
+        </p>
+        <p class="footer-made">
+          Diseñado &amp; desarrollado por mí ✦
+        </p>
+      </div>
+ 
+    </div>
+  </section>
+
+  <script>
+    // Registra los .reveal de la sección Dev en el observer ya existente
+    document.querySelectorAll('#dev .reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+  <script>
+    // =============================================
+    // FORMULARIO — manejo de envío
+    // async/await — permite esperar la respuesta de Formspree
+    // sin bloquear el resto de la página
+    // =============================================
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('btnSend');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      // Recolectamos los valores del formulario
+      const data = {
+        nombre:  document.getElementById('nombre').value,
+        email:   document.getElementById('email').value,
+        asunto:  document.getElementById('asunto').value,
+        mensaje: document.getElementById('mensaje').value
+      };
+
+      try {
+        // fetch hace la llamada HTTP a Formspree
+        // El mensaje llega directo a tu Gmail
+        const response = await fetch('https://formspree.io/f/xdabdzld', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          // Envío exitoso
+          btn.textContent = '✓ Mensaje enviado';
+          btn.classList.add('sent');
+          document.getElementById('contactForm').reset();
+
+          setTimeout(() => {
+            btn.textContent = 'Enviar mensaje';
+            btn.classList.remove('sent');
+            btn.disabled = false;
+          }, 4000);
+        } else {
+          // Formspree devolvió un error
+          throw new Error('Error en el envío');
+        }
+
+      } catch (error) {
+        // Red caída, ID incorrecto u otro problema
+        btn.textContent = 'Error — intentá de nuevo';
+        btn.style.background = 'rgba(180,80,80,0.3)';
+        btn.style.color = '#e07070';
+        setTimeout(() => {
+          btn.textContent = 'Enviar mensaje';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 3000);
+      }
+    }
+
+    // Registra los .reveal de contacto en el observer
+    document.querySelectorAll('#contacto .reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>

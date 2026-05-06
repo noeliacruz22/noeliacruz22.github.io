@@ -1,0 +1,1068 @@
+  /* =============================================
+       VARIABLES DE COLOR — paleta unificada
+       Cambiando estos valores, cambia todo el sitio
+    ============================================= */
+    :root {
+      --midnight:   #312A44;   /* fondo principal dark */
+      --dusky:      #88708E;  /* acento medio */
+      --iris:       #BAAAC8;  /* neón suave / highlights */
+      --plum:       #D7C5D2;   /* fondo claro secciones marketing */
+      --wisteria:   #DAD4DF;   /* fondo muy claro / texto sobre dark */
+      --text-light: #EDE8F2;   /* texto principal sobre fondos oscuros */
+      --text-muted: #BAAAC8;  /* texto secundario / etiquetas */
+    }
+
+    /* =============================================
+       RESET Y BASE
+    ============================================= */
+    * { margin: 0; padding: 0; box-sizing: border-box;}
+
+    body {
+      background-color: var(--midnight);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       NAV LATERAL — barra de navegación vertical
+       position: fixed = queda fija al hacer scroll
+    ============================================= */
+    .side-nav {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);  /* centrado vertical exacto */
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 14px;
+      background: rgba(49, 42, 68, 0.6);   /* midnight con transparencia */
+      backdrop-filter: blur(12px);          /* efecto vidrio esmerilado */
+      border-right: 1px solid rgba(186,176,200,0.15);
+      border-radius: 0 16px 16px 0;
+    }
+
+    .nav-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--iris);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    /* Estado activo del ícono de nav */
+    .nav-icon.active,
+    .nav-icon:hover {
+      background: rgba(186,176,200,0.15);
+      border-color: rgba(186,176,200,0.3);
+      color: #fff;
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-left: 80px;  /* espacio para el nav lateral */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Efecto de luz de fondo — crea profundidad sin imagen */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(136,112,142,0.25) 0%, transparent 70%);
+      pointer-events: none;  /* no interfiere con clicks */
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 20%;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(186,176,200,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Avatar / foto de perfil */
+    .avatar-wrapper {
+      position: relative;
+      width: 140px; height: 140px;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-ring {
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(186,176,200,0.4);
+      /* animación de rotación continua */
+      animation: spin 12s linear infinite;
+    }
+
+    /* Punto decorativo en el anillo giratorio */
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      top: 4px; left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--iris);
+      box-shadow: 0 0 10px var(--iris);  /* brillo neón suave */
+    }
+
+    .avatar-img {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, #312A44, #88708E);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      color: var(--wisteria);
+      border: 2px solid rgba(186,176,200,0.2);
+    }
+
+    /* Etiqueta flotante sobre el avatar */
+    .avatar-badge {
+      position: absolute;
+      bottom: 4px; right: -8px;
+      background: rgba(186,176,200,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(186,176,200,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 10px;
+      color: var(--iris);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* =============================================
+       TIPOGRAFÍA HERO
+    ============================================= */
+
+    /* Etiqueta pequeña sobre el nombre */
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--iris);
+      margin-bottom: 0.75rem;
+      opacity: 0.9;
+    }
+
+    /* Nombre principal — Cormorant para elegancia */
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 86px);  /* clamp = tamaño responsive automático */
+      font-weight: 300;
+      line-height: 1;
+      color: var(--wisteria);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Cursiva en parte del nombre — detalle editorial */
+    .hero-name em {
+      font-style: italic;
+      color: var(--iris);
+    }
+
+    /* Rol con efecto de escritura */
+    .hero-role {
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 300;
+      color: rgba(218,212,223,0.7);
+      margin-bottom: 1.5rem;
+      min-height: 28px;  /* reserva espacio mientras escribe */
+    }
+
+    /* Cursor parpadeante del efecto typewriter */
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(218,212,223,0.6);
+      max-width: 440px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    /* =============================================
+       PILLS DE SKILLS — etiquetas de habilidades
+    ============================================= */
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+    }
+
+    .pill {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(186,176,200,0.25);
+      color: var(--iris);
+      background: rgba(186,176,200,0.07);
+      cursor: default;
+      /* transition: qué cambia, en cuánto tiempo, con qué curva */
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    }
+
+    .pill:hover {
+      /* fondo claro usando el color plum de la paleta */
+      background: var(--plum);
+      border-color: var(--plum);
+      /* texto oscuro para contrastar sobre el fondo claro */
+      color: var(--midnight);
+      /* sube levemente — micro-interacción sutil */
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       BOTONES CTA
+    ============================================= */
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Botón primario: relleno con color iris */
+    .btn-primary-custom {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      background: rgba(186,176,200,0.2);
+      color: var(--wisteria);
+      border: 1px solid rgba(186,176,200,0.4);
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+
+    .btn-primary-custom:hover {
+      background: rgba(186,176,200,0.3);
+      border-color: rgba(186,176,200,0.7);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Botón secundario: solo borde */
+    .btn-outline-custom {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      background: transparent;
+      color: rgba(218,212,223,0.7);
+      border: 1px solid rgba(186,176,200,0.2);
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+
+    .btn-outline-custom:hover {
+      border-color: rgba(186,176,200,0.5);
+      color: var(--wisteria);
+    }
+
+    /* =============================================
+       STATS FLOTANTES — lado derecho del hero
+    ============================================= */
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: rgba(49,42,68,0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(186,176,200,0.12);
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 120px;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover { border-color: rgba(186,176,200,0.3); }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--wisteria);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: rgba(186,176,200,0.6);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Línea decorativa vertical entre hero y stats */
+    .divider-v {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, rgba(186,176,200,0.3), transparent);
+      margin: 0 auto;
+    }
+
+    /* =============================================
+       SCROLL INDICATOR — abajo del hero
+    ============================================= */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(186,176,200,0.4);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .scroll-dot {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(186,176,200,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* =============================================
+       ANIMACIONES
+    ============================================= */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 0.9; transform: scaleY(1.2); }
+    }
+
+    /* Animación de entrada — elementos aparecen de abajo */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Aplicar animación escalonada a elementos del hero */
+    .hero-eyebrow  { animation: fadeUp 0.6s ease 0.1s both; }
+    .avatar-wrapper{ animation: fadeUp 0.6s ease 0.0s both; }
+    .hero-name     { animation: fadeUp 0.6s ease 0.2s both; }
+    .hero-role     { animation: fadeUp 0.6s ease 0.3s both; }
+    .hero-bio      { animation: fadeUp 0.6s ease 0.4s both; }
+    .skill-pills   { animation: fadeUp 0.6s ease 0.5s both; }
+    .cta-group     { animation: fadeUp 0.6s ease 0.6s both; }
+    .hero-stats    { animation: fadeUp 0.6s ease 0.4s both; }
+
+    /* =============================================
+       RESPONSIVE — móvil
+    ============================================= */
+    @media (max-width: 768px) {
+      .side-nav { display: none; }   /* nav lateral se oculta en móvil */
+      .hero { padding-left: 20px; padding-right: 20px; }
+      .hero-stats { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+    }
+
+/* =============================================
+       ESTILOS SECCIÓN MARKETING 
+ =============================================*/
+    #marketing {
+      background-color: var(--wisteria);
+      padding: 100px 60px 80px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #marketing::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,197,210,0.6) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .section-eyebrow {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #88708E;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+    #marketing .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--midnight);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    #marketing .section-title em {
+      font-style: italic;
+      color: #88708E;
+    }
+    .section-divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(to right, #88708E, transparent);
+      margin: 1rem 0 1.5rem;
+    }
+    .section-intro {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(49,42,68,0.65);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 3.5rem;
+    }
+
+    /* PROJECT CARDS */
+    .project-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(136,112,142,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(49,42,68,0.12);
+    }
+    .card-img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: var(--plum);
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .card-img-wrap img { transform: scale(1.05); }
+    .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      background: linear-gradient(135deg, var(--plum), var(--wisteria));
+    }
+    .img-placeholder span {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(49,42,68,0.4);
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(49,42,68,0.75);
+      backdrop-filter: blur(8px);
+      color: var(--wisteria);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .card-link-icon {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      text-decoration: none;
+      color: var(--midnight);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .project-card:hover .card-link-icon { opacity: 1; }
+    .card-body-custom { padding: 20px 22px 22px; }
+    .card-platform {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #88708E;
+      margin-bottom: 6px;
+    }
+    .card-title-custom {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--midnight);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(49,42,68,0.6);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-tag {
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--wisteria);
+      color: rgba(49,42,68,0.7);
+      border: 1px solid rgba(136,112,142,0.2);
+    }
+
+    /* GRID PUBLICACIONES */
+    .pub-section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(49,42,68,0.5);
+      margin-bottom: 1rem;
+    }
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+    .pub-item {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--plum);
+    }
+    .pub-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .pub-overlay {
+      position: absolute; inset: 0;
+      background: rgba(49,42,68,0.75);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      text-decoration: none;
+    }
+    .pub-item:hover .pub-overlay { opacity: 1; }
+    .pub-item:hover img            { transform: scale(1.08); }
+    .pub-overlay-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--wisteria);
+    }
+    .pub-overlay-icon { font-size: 20px; color: #fff; }
+    .pub-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #D7C5D2, #DAD4DF);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: rgba(49,42,68,0.35);
+      text-transform: uppercase;
+    }
+
+    /* HERRAMIENTAS */
+    .tools-wrap {
+      background: var(--midnight);
+      border-radius: 20px;
+      padding: 32px 36px;
+      margin-top: 60px;
+    }
+    .tools-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--iris);
+      margin-bottom: 0.5rem;
+    }
+    .tools-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--wisteria);
+      margin-bottom: 1.5rem;
+    }
+    .tools-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .tool-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(186,176,200,0.1);
+      border: 1px solid rgba(186,176,200,0.2);
+      border-radius: 12px;
+      padding: 10px 16px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .tool-chip:hover {
+      background: rgba(215,197,210,0.15);
+      border-color: rgba(186,176,200,0.45);
+      transform: translateY(-2px);
+    }
+    .tool-icon { font-size: 18px; }
+    .tool-name { font-size: 13px; font-weight: 400; color: var(--wisteria); }
+    .tool-status {
+      font-size: 9px; letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--iris); opacity: 0.7;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+      #marketing { padding: 80px 20px; }
+    }
+
+/*=============================================
+    ESTILOS SECCIÓN DEV
+ =============================================*/
+
+    #dev {
+      background-color: var(--midnight);
+      padding: 100px 60px 80px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #dev::before {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -80px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(136,112,142,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #dev::after {
+      content: '';
+      position: absolute;
+      top: 60px; right: -60px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(186,176,200,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #dev .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--wisteria);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    #dev .section-title em { font-style: italic; color: var(--iris); }
+    #dev .section-eyebrow { color: var(--iris); }
+    #dev .section-divider { background: linear-gradient(to right, var(--iris), transparent); }
+    #dev .section-intro { color: rgba(218,212,223,0.55); }
+
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 4rem; }
+    .stack-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(186,176,200,0.07);
+      border: 1px solid rgba(186,176,200,0.18);
+      border-radius: 10px; padding: 10px 16px;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .stack-chip:hover {
+      background: rgba(186,176,200,0.14);
+      border-color: rgba(186,176,200,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(186,176,200,0.12);
+    }
+    .stack-chip-icon { font-size: 20px; line-height: 1; }
+    .stack-chip-name { font-size: 13px; font-weight: 400; color: var(--wisteria); }
+    .stack-chip-level { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--iris); opacity: 0.65; }
+
+    .edu-wrap { position: relative; padding-left: 28px; }
+    .edu-wrap::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 1px;
+      height: calc(100% - 16px);
+      background: linear-gradient(to bottom, rgba(186,176,200,0.5), rgba(186,176,200,0.1));
+    }
+    .edu-item { position: relative; margin-bottom: 2rem; }
+    .edu-item::before {
+      content: '';
+      position: absolute;
+      left: -32px; top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--iris);
+      box-shadow: 0 0 0 3px rgba(186,176,200,0.15);
+    }
+    .edu-year { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--iris); opacity: 0.7; margin-bottom: 4px; }
+    .edu-title { font-family: "Cormorant Garamond", serif; font-size: 18px; font-weight: 400; color: var(--wisteria); margin-bottom: 2px; line-height: 1.3; }
+    .edu-institution { font-size: 12px; color: rgba(186,176,200,0.55); margin-bottom: 6px; }
+    .edu-badge { display: inline-block; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+    .edu-badge.done { background: rgba(100,180,130,0.15); color: #7ecfa0; border: 1px solid rgba(100,180,130,0.25); }
+    .edu-badge.active { background: rgba(186,176,200,0.12); color: var(--iris); border: 1px solid rgba(186,176,200,0.25); }
+
+    .dev-card {
+      background: rgba(186,176,200,0.05);
+      border: 1px solid rgba(186,176,200,0.12);
+      border-radius: 16px; padding: 24px;
+      height: 100%; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .dev-card:hover {
+      border-color: rgba(186,176,200,0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+    .dev-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 60px; height: 60px;
+      background: linear-gradient(225deg, rgba(186,176,200,0.1) 0%, transparent 60%);
+    }
+    .dev-card-bg-icon {
+      position: absolute; bottom: -10px; right: 16px;
+      font-size: 80px; opacity: 0.04;
+      line-height: 1; pointer-events: none; user-select: none;
+    }
+    .dev-card-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--iris); opacity: 0.7; margin-bottom: 10px; }
+    .dev-card-title { font-family: "Cormorant Garamond", serif; font-size: 22px; font-weight: 300; color: var(--wisteria); margin-bottom: 10px; line-height: 1.2; }
+    .dev-card-desc { font-size: 13px; font-weight: 300; color: rgba(218,212,223,0.45); line-height: 1.7; margin-bottom: 16px; }
+    .dev-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    .dev-card-tag { font-size: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(186,176,200,0.08); color: rgba(186,176,200,0.6); border: 1px solid rgba(186,176,200,0.15); }
+    .coming-soon-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(186,176,200,0.4);
+      border: 1px dashed rgba(186,176,200,0.2);
+      border-radius: 20px; padding: 5px 12px;
+    }
+    .blink-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--iris); opacity: 0.6;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    .github-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(186,176,200,0.08);
+      border: 1px solid rgba(186,176,200,0.22);
+      border-radius: 12px; padding: 14px 24px;
+      text-decoration: none; color: var(--wisteria);
+      font-size: 14px; font-weight: 400;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      margin-top: 2.5rem;
+    }
+    .github-cta:hover {
+      background: rgba(186,176,200,0.15);
+      border-color: rgba(186,176,200,0.45);
+      color: #fff; transform: translateY(-2px);
+    }
+    .github-icon { font-size: 20px; line-height: 1; }
+
+    .dev-separator {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(186,176,200,0.2), transparent);
+      margin: 3.5rem 0;
+    }
+
+    @media (max-width: 768px) { #dev { padding: 80px 20px; } }
+
+/*=============================================
+    ESTILOS SECCIÓN CONTACTO
+ =============================================*/
+    #contacto {
+      background-color: var(--plum);   /* #D7C5D2 — Plum Blossom, más cálido que Marketing */
+      padding: 100px 60px 80px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    /* Luz decorativa esquina superior derecha */
+    #contacto::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,212,223,0.5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+ 
+    /* Luz decorativa esquina inferior izquierda */
+    #contacto::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(136,112,142,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+ 
+    #contacto .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--midnight);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+ 
+    #contacto .section-title em {
+      font-style: italic;
+      color: #88708E;
+    }
+ 
+    #contacto .section-eyebrow { color: #88708E; }
+    #contacto .section-divider { background: linear-gradient(to right, #88708E, transparent); }
+ 
+    #contacto .section-intro {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(49,42,68,0.6);
+      max-width: 400px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+ 
+    /* =============================================
+       FORMULARIO — inputs estilo editorial
+    ============================================= */
+    .contact-form { width: 100%; }
+ 
+    .form-group { margin-bottom: 1.4rem; }
+ 
+    /* Label flotante sobre el input */
+    .form-label-custom {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(49,42,68,0.5);
+      margin-bottom: 6px;
+    }
+ 
+    /* Input base */
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(136,112,142,0.25);
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--midnight);
+      outline: none;
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+      -webkit-appearance: none;
+    }
+ 
+    /* Placeholder más suave */
+    .form-input::placeholder { color: rgba(49,42,68,0.3); }
+ 
+    /* Focus: fondo más blanco + borde lilac + sombra suave */
+    .form-input:focus {
+      background: rgba(255,255,255,0.85);
+      border-color: rgba(136,112,142,0.6);
+      box-shadow: 0 0 0 3px rgba(136,112,142,0.1);
+    }
+ 
+    /* Textarea — misma base que input */
+    textarea.form-input {
+      resize: vertical;        /* solo se puede redimensionar verticalmente */
+      min-height: 130px;
+    }
+ 
+    /* Botón de envío */
+    .btn-send {
+      width: 100%;
+      padding: 14px;
+      background: var(--midnight);
+      color: var(--wisteria);
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      margin-top: 0.5rem;
+    }
+ 
+    .btn-send:hover {
+      background: #26203a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(49,42,68,0.2);
+    }
+ 
+    /* Estado de éxito tras envío */
+    .btn-send.sent {
+      background: rgba(100,180,130,0.3);
+      color: #4aaa74;
+      border: 1px solid rgba(100,180,130,0.4);
+      cursor: default;
+      transform: none;
+    }
+ 
+    /* =============================================
+       CARDS DE CONTACTO — lado derecho
+    ============================================= */
+    .contact-cards { display: flex; flex-direction: column; gap: 12px; }
+ 
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(136,112,142,0.18);
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+    }
+ 
+    .contact-card:hover {
+      background: rgba(255,255,255,0.75);
+      border-color: rgba(136,112,142,0.4);
+      transform: translateX(4px);   /* desliza hacia la derecha — distinto al translateY de otras secciones */
+      box-shadow: 0 8px 24px rgba(49,42,68,0.08);
+    }
+ 
+    /* Ícono dentro de la card */
+    .contact-card-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(49,42,68,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;   /* no se achica en pantallas pequeñas */
+      transition: background 0.25s;
+    }
+ 
+    .contact-card:hover .contact-card-icon {
+      background: rgba(49,42,68,0.14);
+    }
+ 
+    .contact-card-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(49,42,68,0.45);
+      margin-bottom: 2px;
+    }
+ 
+    .contact-card-value {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--midnight);
+    }
+ 
+    /* Flecha al extremo derecho de la card */
+    .contact-card-arrow {
+      margin-left: auto;
+      font-size: 14px;
+      color: rgba(49,42,68,0.3);
+      transition: color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+ 
+    .contact-card:hover .contact-card-arrow {
+      color: rgba(49,42,68,0.7);
+      transform: translateX(3px);
+    }
+ 
+    /* =============================================
+       PIE DE PÁGINA — copyright al fondo
+    ============================================= */
+    .site-footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(136,112,142,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+ 
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(49,42,68,0.4);
+    }
+ 
+    .footer-made {
+      font-size: 11px;
+      color: rgba(49,42,68,0.35);
+      letter-spacing: 0.5px;
+    }
+ 
+    /* Puntito separador */
+    .footer-dot {
+      display: inline-block;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: rgba(49,42,68,0.25);
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+ 
+    @media (max-width: 768px) {
+      #contacto { padding: 80px 20px; }
+      .site-footer { justify-content: center; text-align: center; }
+    }
