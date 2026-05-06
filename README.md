@@ -7,7 +7,7 @@
 
 ## ✨ Vista previa
 
-🔗 **[Ver portfolio en vivo](https://noeliacruz22.github.io/portfolio)**
+🔗 **[Ver portfolio en vivo](https://noeliacruz22.github.io/)**
 
 ---
 
